@@ -1,9 +1,21 @@
+:root {
+  --color-primary: #545454;
+  --color-background: #e5e5e5;
+}
+
+@font-face {
+  font-family: "Verdana";
+  src: url("/fonts/verdana.ttf") format("ttf"),
+    url("/fonts/verdana-bold") format("ttf");
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "Verdana", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: var(--color-background);
 }
 
 a {

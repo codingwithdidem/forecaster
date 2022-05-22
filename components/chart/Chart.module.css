@@ -1,0 +1,32 @@
+.chartBox {
+  width: 700px;
+  height: 350px;
+}
+
+@media only screen and (max-width: 800px) {
+  .chartBox {
+    width: 600px;
+    height: 300px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .chartBox {
+    width: 480px;
+    height: 270px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .chartBox {
+    width: 400px;
+    height: 250px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .chartBox {
+    width: 300px;
+    height: 250px;
+  }
+}
