@@ -28,21 +28,22 @@
 }
 
 .noCityTitle {
-  color: #545454;
+  color: var(--color-primary);
   font-weight: 400;
   font-size: 32px;
+  line-height: 39px;
 }
 
 .noCityText {
-  color: #545454;
+  color: var(--color-primary);
   font-weight: 400;
   font-size: 24px;
+  line-height: 29px;
 }
 
 .error {
-  color: #CD7B7B;
+  color: var(--color-raspberry);
 }
-
 
 @media (max-width: 1100px) {
   .infoContainer {
@@ -53,16 +54,10 @@
 
 @media (max-width: 600px) {
   .noCityTitle {
-    color: #545454;
-    font-weight: 400;
     font-size: 28px;
-    line-height: 39px;
   }
-  
+
   .noCityText {
-    color: #545454;
-    font-weight: 400;
     font-size: 20px;
-    line-height: 29px;
   }
 }

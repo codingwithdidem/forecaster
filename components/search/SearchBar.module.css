@@ -19,7 +19,7 @@
   font-weight: 400;
   padding: 0px 20px;
   outline: none;
-  color: #545454;
+  color: var(--color-primary);
 }
 
 .search__input::placeholder {
@@ -48,7 +48,7 @@
   border: none;
   outline: none;
   cursor: pointer;
-  color: #77b6e6;
+  color: var(--color-blue);
   border-radius: 50%;
 }
 
@@ -64,7 +64,6 @@
   .search__icon {
     width: 30px;
     height: 30px;
-   
   }
 }
 
