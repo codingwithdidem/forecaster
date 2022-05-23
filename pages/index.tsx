@@ -53,7 +53,7 @@ const Home: NextPage = () => {
 
         <div className={styles.noCityContainer}>
           <h2 className={`${styles.noCityTitle} ${styles.error}`}>
-            City doesn't exist!
+            {"City doesn't exist!"}
           </h2>
           <p className={styles.noCityText}>
             Type a valid city name to get weekly forecast data
