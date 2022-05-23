@@ -38,7 +38,7 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (data !== undefined && search !== "") {
-      setSelected(data.data[0]);
+      setSelected((data as any).data[0]);
     }
   }, [search, data]);
 
@@ -97,10 +97,12 @@ const Home: NextPage = () => {
         <div className={styles.infoContainer}>
           <div>
             <ChartComponent
-              title={`Average High & Low Temperatures for ${data.city_name}`}
-              data={data.data}
+              title={`Average High & Low Temperatures for ${
+                (data as any).city_name
+              }`}
+              data={(data as any).data}
               onDateSelect={(date: string) => {
-                const item = data.data.find(
+                const item = (data as any).data.find(
                   (item: any) => item.datetime === date
                 );
                 setSelected(item);
@@ -108,7 +110,7 @@ const Home: NextPage = () => {
             />
           </div>
           <div>
-            <Card selected={selected} city={data.city_name} />
+            <Card selected={selected} city={(data as any).city_name} />
           </div>
         </div>
       )}
