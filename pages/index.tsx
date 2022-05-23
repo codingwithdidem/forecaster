@@ -2,55 +2,102 @@ import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import useSWR, { Key, Fetcher } from "swr";
 import dynamic from "next/dynamic";
+import { css } from "@emotion/react";
+import ScaleLoader from "react-spinners/ScaleLoader";
+
+import SearchBar from "@/components/search/SearchBar";
+import Card from "@/components/card/Card";
 const ChartComponent = dynamic(() => import("@/components/chart/Chart"), {
   ssr: false,
 });
 
 import styles from "../styles/Home.module.css";
 
-import Header from "@/components/header/Header";
-import SearchBar from "@/components/search/SearchBar";
-import Card from "@/components/card/Card";
-
-const data = {
-  degree: 26,
-  datetime: "28 Jan",
-  weather: {
-    description: "clear sky",
-  },
-};
-
 const fetcher: Fetcher = (url: string) => fetch(url).then((r) => r.json());
 
+const override = css`
+  display: block;
+  margin: 0 auto;
+`;
+
 const Home: NextPage = () => {
-  const [search, setSearch] = useState("Istanbul");
+  const [mounted, setMounted] = useState(false);
+  const [search, setSearch] = useState("");
   const [selected, setSelected] = useState(null);
 
   const { data, error } = useSWR(
-    `https://api.weatherbit.io/v2.0/forecast/daily?city=${search}&key=${process.env.NEXT_PUBLIC_WEATHERBIT_API_KEY}`,
+    mounted
+      ? `https://api.weatherbit.io/v2.0/forecast/daily?city=${search}&key=${process.env.NEXT_PUBLIC_WEATHERBIT_API_KEY}`
+      : null,
     fetcher
   );
 
-  if (error) return <div>failed to load</div>;
-  if (!data) return <div>loading...</div>;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (data !== undefined && search !== "") {
+      setSelected(data.data[0]);
+    }
+  }, [search, data]);
 
   const onSearch = (searchTerm: string) => {
     setSearch(searchTerm);
   };
 
-  console.log(selected);
-  console.log(data);
-
-  return (
-    <div>
-      <Header />
-
+  if (error) {
+    return (
       <div className={styles.main}>
         <SearchBar onSearch={onSearch} />
+
+        <div className={styles.noCityContainer}>
+          <h2 className={`${styles.noCityTitle} ${styles.error}`}>
+            City doesn't exist!
+          </h2>
+          <p className={styles.noCityText}>
+            Type a valid city name to get weekly forecast data
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!data)
+    return (
+      <div
+        style={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
+      >
+        <ScaleLoader
+          color={"#545454"}
+          loading
+          css={override}
+          width={20}
+          height={50}
+        />
+      </div>
+    );
+
+  return (
+    <div className={styles.main}>
+      <SearchBar onSearch={onSearch} />
+      {search === "" ? (
+        <div className={styles.noCityContainer}>
+          <h2 className={styles.noCityTitle}>No city is selected!</h2>
+          <p className={styles.noCityText}>
+            Type any city name to get weekly forecast data
+          </p>
+        </div>
+      ) : (
         <div className={styles.infoContainer}>
           <div>
             <ChartComponent
-              title={`Average High & Low Temperatures for ${search}`}
+              title={`Average High & Low Temperatures for ${data.city_name}`}
               data={data.data}
               onDateSelect={(date: string) => {
                 const item = data.data.find(
@@ -64,7 +111,7 @@ const Home: NextPage = () => {
             <Card selected={selected} city={data.city_name} />
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

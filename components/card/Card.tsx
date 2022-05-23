@@ -8,7 +8,6 @@ type CardProps = {
 };
 
 const Card = ({ selected, city }: CardProps) => {
-  if (!selected) return null;
 
   const date = selected && format(new Date(selected.datetime), "dd MMM");
   return (
@@ -25,9 +24,8 @@ const Card = ({ selected, city }: CardProps) => {
         </div>
       </div>
       <div className={styles.card__row}>
-        <div className={styles.card__state}>
-          <span>{selected?.weather?.description}</span>
-        </div>
+          <img src={`/icons/${selected?.weather?.icon}.png`} alt="icon" className={styles.card__icon} />
+          <p className={styles.card__state}>{selected?.weather?.description}</p>
       </div>
     </div>
   );

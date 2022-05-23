@@ -12,3 +12,9 @@
   font-size: 32px;
   font-weight: 700;
 }
+
+@media (max-width: 1100px) {
+  .header__title {
+    font-size: 24px;
+  }
+}

@@ -9,6 +9,10 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const onSubmit = () => {
+    if(searchTerm === "")
+    return;
+
+    
     onSearch(searchTerm);
 
     setSearchTerm("");
