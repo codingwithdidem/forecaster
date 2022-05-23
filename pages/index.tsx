@@ -21,9 +21,9 @@ const override = css`
 `;
 
 const Home: NextPage = () => {
-  const [mounted, setMounted] = useState(false);
-  const [search, setSearch] = useState("");
-  const [selected, setSelected] = useState(null);
+  const [mounted, setMounted] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>("");
+  const [selected, setSelected] = useState<any>(null);
 
   const { data, error } = useSWR(
     mounted

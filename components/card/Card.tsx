@@ -4,11 +4,17 @@ import styles from "./Card.module.css";
 
 type CardProps = {
   city: string;
-  selected: any;
+  selected: {
+    temp: number;
+    datetime: string;
+    weather: {
+      icon: string;
+      description: string;
+    };
+  };
 };
 
 const Card = ({ selected, city }: CardProps) => {
-
   const date = selected && format(new Date(selected.datetime), "dd MMM");
   return (
     <div className={styles.card}>
@@ -24,8 +30,12 @@ const Card = ({ selected, city }: CardProps) => {
         </div>
       </div>
       <div className={styles.card__row}>
-          <img src={`/icons/${selected?.weather?.icon}.png`} alt="icon" className={styles.card__icon} />
-          <p className={styles.card__state}>{selected?.weather?.description}</p>
+        <img
+          src={`/icons/${selected?.weather?.icon}.png`}
+          alt="icon"
+          className={styles.card__icon}
+        />
+        <p className={styles.card__state}>{selected?.weather?.description}</p>
       </div>
     </div>
   );

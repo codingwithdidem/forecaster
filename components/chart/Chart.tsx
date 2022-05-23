@@ -1,7 +1,6 @@
 import React, { useRef, MouseEvent } from "react";
 import {
   Chart as ChartJS,
-  ChartDataset,
   CategoryScale,
   LinearScale,
   PointElement,
@@ -12,15 +11,10 @@ import {
   Legend,
   InteractionItem,
 } from "chart.js";
+import type { ChartData, ChartOptions, ChartDataset } from "chart.js";
 
-import {
-  Line,
-  getDatasetAtEvent,
-  getElementAtEvent,
-  getElementsAtEvent,
-} from "react-chartjs-2";
+import { Line, getElementAtEvent } from "react-chartjs-2";
 import "chartjs-adapter-date-fns";
-import { format } from "date-fns";
 import styles from "./Chart.module.css";
 
 ChartJS.register(
@@ -34,7 +28,7 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
+export const options: ChartOptions<"line"> = {
   responsive: true,
   maintainAspectRatio: false,
   plugins: {
@@ -49,7 +43,6 @@ export const options = {
     mode: "index" as const,
     intersect: false,
   },
-  stacked: false,
   scales: {
     x: {
       type: "time",
@@ -82,11 +75,11 @@ type ChartProps = {
 };
 
 const Chart = ({ title, data, onDateSelect }: ChartProps) => {
-  const chartRef = useRef<ChartJS>(null);
+  const chartRef = useRef<any>(null);
 
   const labels = data.map((item) => item.datetime);
 
-  const DATASETS: ChartDataset[] = [
+  const DATASETS = [
     {
       label: "High",
       data: data.map((item: any) => item.high_temp),
