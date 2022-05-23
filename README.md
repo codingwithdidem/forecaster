@@ -4,7 +4,7 @@ A case study project for **Spiky.ai** 💛
 
 ## Demo
 
-[See Demo]()
+[See Demo](https://forecaster-chi.vercel.app/)
 
 ## Screenshots
 
