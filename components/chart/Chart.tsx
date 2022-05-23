@@ -108,7 +108,6 @@ const Chart = ({ title, data, onDateSelect }: ChartProps) => {
 
   const printElementAtEvent = (element: InteractionItem[]) => {
     if (!element.length) return;
-    console.log(element[0].element.$context.datasetIndex);
 
     const { datasetIndex, index } = element[0];
 
